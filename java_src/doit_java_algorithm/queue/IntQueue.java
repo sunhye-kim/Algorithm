@@ -1,4 +1,4 @@
-package doit_java_algorithm;
+package doit_java_algorithm.queue;
 
 public class IntQueue {
     private int max; // 큐 용량
