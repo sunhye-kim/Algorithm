@@ -91,4 +91,15 @@ public class IntQueue {
             System.out.println();
         }
     }
+
+    public int search(int x) throws EmptyIntQueueException {
+        if (num <= 0)
+            throw new EmptyIntQueueException();
+
+        for (int i = 0; i < num; i++){
+            if (que[(i + front) % max] == x)
+                return i + 1;
+        }
+        return 0;
+    }
 }

@@ -9,7 +9,7 @@ public class IntQueueTester {
 
         while (true){
             System.out.println("현재 데이터 수: " + s.size() + " / " + s.capacity());
-            System.out.println("(1)인큐 (2)디큐 (3)피크 (4)덤프 (0)종료");
+            System.out.println("(1)인큐 (2)디큐 (3)피크 (4)덤프 (5)서치 (0)종료");
 
             int menu = stdIn.nextInt();
             if (menu == 0) break;
@@ -44,6 +44,16 @@ public class IntQueueTester {
                 case 4:
                     s.dump();
                     break;
+                case 5:
+                    try {
+                        x = s.search(35);
+                        if (x == 0)
+                            System.out.println("해당하는 숫자 없음");
+                        else
+                            System.out.println(x + "번째 요소에 존재함");
+                    } catch (IntQueue.EmptyIntQueueException e){
+                        System.out.println("큐가 비어있음");
+                    }
             }
         }
     }
