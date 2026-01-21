@@ -5,51 +5,48 @@ import java.io.*;
 import java.util.*;
 
 public class Problem11725 {
-    static boolean[] check;
-    static int[][] arr;
-    static int count = 0;
-
-    static int node;
-
-    static int[] result;
-
+    static ArrayList<Integer>[] graph;
+    static boolean[] visited;
+    static int[] parent;
+    static int N;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        node = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
 
-        arr = new int[node + 1][node + 1];
-        check = new boolean[node + 1];
-        result = new int[node + 1];
+        graph = new ArrayList[N + 1];
+        visited = new boolean[N + 1];
+        parent = new int[N + 1];
 
-        for (int i = 0; i < (node - 1); i++) {
+        // 인접 리스트 초기화
+        for (int i=0; i <= N; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < (N - 1); i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            arr[a][b] = arr[b][a] = 1;
+            graph[a].add(b);
+            graph[b].add(a);
         }
 
-        for (int i = 1; i < (node + 1); i++) {
-            if (arr[1][i] == 1 && !check[i]) dfs(1, i);
-        }
+        dfs(1);
 
-        for (int i = 2; i <= node; i++) {
-            System.out.println(result[i]);
+        for (int i = 2; i <= N; i++) {
+            System.out.println(parent[i]);
         }
     }
 
-    public static void dfs(int row, int col){
-        check[row] = true;
-        result[col] = row;
+    public static void dfs(int node){
+        visited[node] = true;
 
-
-        for (int i = 1; i < (node + 1); i++){
-            if (!check[i] && arr[col][i] == 1){
-                dfs(col, i);
+        for (int next : graph[node]) {
+            if (!visited[next]) {
+                parent[next] = node;
+                dfs(next);
             }
-
         }
-
     }
 }
